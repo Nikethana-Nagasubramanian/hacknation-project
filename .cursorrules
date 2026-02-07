@@ -1,0 +1,2 @@
+Focus on React Server Components. Use Lucide-React for icons and Shadcn UI for components. Prioritize accessibility (ARIA labels) and performance. Avoid unnecessary 'use client' directives.
+
