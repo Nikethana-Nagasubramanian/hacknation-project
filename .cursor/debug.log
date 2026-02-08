@@ -1,0 +1,41 @@
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529402935,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529403461,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529403462,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529406009,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529406010,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529406011,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529406012,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:startConversation","message":"Starting conversation","data":{},"timestamp":1770529464789,"hypothesisId":"D"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529464792,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529464793,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"connecting","isSpeaking":false},"timestamp":1770529464924,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"connecting","isSpeaking":false},"timestamp":1770529464926,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:onConnect","message":"Conversation connected","data":{},"timestamp":1770529465561,"hypothesisId":"C"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"connected","isSpeaking":false},"timestamp":1770529465563,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"connected","isSpeaking":false},"timestamp":1770529465565,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"connected","isSpeaking":true},"timestamp":1770529465726,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"connected","isSpeaking":true},"timestamp":1770529465731,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:onMessage","message":"Message received","data":{"message":{"source":"ai","role":"agent","message":"Hi there. What kind of appointment are you looking to make?"}},"timestamp":1770529465744,"hypothesisId":"B"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnecting","isSpeaking":true},"timestamp":1770529466385,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnecting","isSpeaking":true},"timestamp":1770529466387,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:onDisconnect","message":"Conversation disconnected","data":{},"timestamp":1770529466395,"hypothesisId":"C"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":true},"timestamp":1770529466396,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":true},"timestamp":1770529466399,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529574127,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529574127,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529574646,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529574646,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529574647,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529574649,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529574806,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529574809,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529688190,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:conversationConfig","message":"Recalculating conversationConfig","data":{},"timestamp":1770529688194,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529688195,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:rendering","message":"Component rendering","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","status":"disconnected","isSpeaking":false},"timestamp":1770529688197,"hypothesisId":"A"}
+{"location":"VoiceAgent.tsx:mount","message":"VoiceAgent mounted","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","isGCalAuthenticated":false},"timestamp":1770530695866,"hypothesisId":"E"}
+{"location":"VoiceAgent.tsx:mount","message":"VoiceAgent mounted","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","isGCalAuthenticated":false},"timestamp":1770530814869,"hypothesisId":"E"}
+{"location":"VoiceAgent.tsx:startSession","message":"Starting session","data":{"agentId":"agent_5701kgwwbs3qfn19nr67qcgrka58","dateStr":"Sunday, February 8, 2026"},"timestamp":1770530817827,"hypothesisId":"E"}
+{"location":"VoiceAgent.tsx:onConnect","message":"Conversation Connected","data":{},"timestamp":1770530818614,"hypothesisId":"G"}
+{"location":"VoiceAgent.tsx:onMessageWrapper","message":"Incoming message","data":{"msg":{"source":"ai","role":"agent","message":"Hi there. What kind of appointment are you looking to make?"}},"timestamp":1770530818793,"hypothesisId":"B"}
+{"location":"VoiceAgent.tsx:onDisconnect","message":"Conversation Disconnected","data":{},"timestamp":1770530819453,"hypothesisId":"G"}

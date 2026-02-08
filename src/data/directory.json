@@ -1,0 +1,59 @@
+{
+  "providers": [
+    {
+      "id": "prov_01",
+      "name": "Beacon Hill Dental Group",
+      "category": "dentist",
+      "phone": "+1-617-555-0101",
+      "rating": 4.8,
+      "address": "123 Charles St, Boston, MA 02114",
+      "distanceMiles": 0.8,
+      "availableSlots": ["2026-02-09T09:00:00Z", "2026-02-11T14:30:00Z"],
+      "metadata": { "accepts_insurance": true, "parking": "street" }
+    },
+    {
+      "id": "prov_02",
+      "name": "Cambridge Performance Physio (Whoop Hub)",
+      "category": "physical_therapy",
+      "phone": "+1-617-555-0202",
+      "rating": 4.9,
+      "address": "155 Main St, Cambridge, MA 02142",
+      "distanceMiles": 1.2,
+      "availableSlots": ["2026-02-09T11:00:00Z"],
+      "metadata": { "specialty": "Sports recovery", "waitlist": true }
+    },
+    {
+      "id": "prov_03",
+      "name": "Back Bay QuickFix Auto",
+      "category": "car_repair",
+      "phone": "+1-617-555-0303",
+      "rating": 3.7,
+      "address": "500 Boylston St, Boston, MA 02116",
+      "distanceMiles": 2.5,
+      "availableSlots": ["2026-02-09T08:00:00Z", "2026-02-09T16:00:00Z"],
+      "metadata": { "same_day": true }
+    },
+    {
+      "id": "prov_04",
+      "name": "Seaport Modern Smiles",
+      "category": "dentist",
+      "phone": "+1-617-555-0404",
+      "rating": 4.2,
+      "address": "22 Liberty Dr, Boston, MA 02210",
+      "distanceMiles": 3.1,
+      "availableSlots": ["2026-02-10T10:00:00Z", "2026-02-10T15:00:00Z"],
+      "metadata": { "accepts_insurance": true }
+    },
+    {
+      "id": "prov_05",
+      "name": "MIT Area Dental Care",
+      "category": "dentist",
+      "phone": "+1-617-555-0505",
+      "rating": 4.5,
+      "address": "77 Massachusetts Ave, Cambridge, MA 02139",
+      "distanceMiles": 0.3,
+      "availableSlots": ["2026-02-09T09:00:00Z"],
+      "metadata": { "notes": "High demand, likely conflict" }
+    }
+  ]
+}
