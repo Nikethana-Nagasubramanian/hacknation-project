@@ -57,10 +57,45 @@ const SCRIPTS = {
 };
 
 /**
- * Get provider by ID from the directory
+ * Get provider by ID from the directory or handle synthetic providers
  */
 export function getProvider(providerId: string): Provider | undefined {
-  return (providersData.providers as Provider[]).find(p => p.id === providerId);
+  // Check local directory first
+  const realProvider = (providersData.providers as Provider[]).find(p => p.id === providerId);
+  if (realProvider) return realProvider;
+
+  // Handle synthetic providers (generated on the fly for any category)
+  if (providerId.startsWith('synth_')) {
+    const parts = providerId.split('_');
+    const category = parts[1] || 'service';
+    const index = parts[2] || '01';
+    
+    // Reconstruct a realistic mock provider for the simulation
+    return {
+      id: providerId,
+      name: index === '01' ? `${category.charAt(0).toUpperCase() + category.slice(1)} of Boston` : `Elite ${category.charAt(0).toUpperCase() + category.slice(1)} Care`,
+      category: category as any,
+      phone: index === '01' ? "+1-617-555-9901" : "+1-617-555-9902",
+      rating: index === '01' ? 4.7 : 4.9,
+      address: index === '01' ? "100 Main St, Boston, MA" : "250 Common Ave, Boston, MA",
+      distanceMiles: index === '01' ? 0.5 : 1.2,
+      availableSlots: (() => {
+        // Build today/tomorrow date strings in the user's timezone (no UTC shift)
+        const now = new Date();
+        const todayStr = now.toLocaleDateString('sv-SE', { timeZone: SIMULATOR_TIMEZONE }); // "YYYY-MM-DD"
+        const tom = new Date(now.getTime() + 86400000);
+        const tomorrowStr = tom.toLocaleDateString('sv-SE', { timeZone: SIMULATOR_TIMEZONE });
+        return [
+          `${todayStr}T10:00:00`,
+          `${todayStr}T14:30:00`,
+          `${tomorrowStr}T09:00:00`
+        ];
+      })(),
+      metadata: { notes: "Dynamically generated provider" }
+    };
+  }
+
+  return undefined;
 }
 
 /**
@@ -115,17 +150,23 @@ export async function simulateProviderCall(
   });
 
   // Check if requested slot is in provider's available slots
-  const requestedTime = new Date(requestedSlot).getTime();
-  const availableSlot = provider.availableSlots.find(slot => {
+  const requestedDate = new Date(requestedSlot);
+  const requestedTime = requestedDate.getTime();
+  
+  // LOGIC FIX: If the requested time is between 10 PM and 7 AM, it's never available
+  const hour = requestedDate.getHours();
+  const isAfterHours = hour >= 22 || hour <= 7;
+
+  const availableSlot = isAfterHours ? null : provider.availableSlots.find(slot => {
     const slotTime = new Date(slot).getTime();
-    // Allow 30-minute flexibility
-    return Math.abs(slotTime - requestedTime) <= 30 * 60 * 1000;
+    // Allow 60-minute flexibility instead of 30 for better success rate
+    return Math.abs(slotTime - requestedTime) <= 60 * 60 * 1000;
   });
 
-  // Random availability factor for realism
-  const isAvailable = availableSlot && Math.random() < personality.availabilityRate;
+  // Random availability factor for realism - boosted for better UX
+  const isAvailable = !!availableSlot && Math.random() < (personality.availabilityRate + 0.1);
 
-  if (isAvailable) {
+  if (isAvailable && availableSlot) {
     // 4. Success
     transcript.push({ role: 'receptionist', message: scripts.available, delay: 1000 });
     transcript.push({ role: 'alfred', message: "That sounds perfect. Please confirm the booking.", delay: 500 });
@@ -136,22 +177,32 @@ export async function simulateProviderCall(
       providerId,
       providerName: provider.name,
       message: scripts.booked.replace('{slot}', formatSlot(availableSlot)),
-      bookedSlot: availableSlot,
+      bookedSlot: availableSlot.replace('Z', ''),
       waitTime: transcript.reduce((sum, t) => sum + t.delay, 0),
       transcript
     };
   } else if (provider.availableSlots.length > 0) {
-    // 4. Alternatives
-    const alternatives = provider.availableSlots.slice(0, 1);
-    transcript.push({ role: 'receptionist', message: scripts.unavailable.replace('{alternative}', formatSlot(alternatives[0])), delay: 1000 });
+    // 4. Alternatives - Ensure alternative is during business hours
+    let alternative = provider.availableSlots[0].replace('Z', '');
+    
+    // If the first available slot is at night, pick a better one (10 AM same day)
+    const clean = alternative.replace(/(\.\d+)?([Zz]|[+-]\d{2}:\d{2})$/, '');
+    const [altDatePart] = clean.split('T');
+    const altTimePart = clean.includes('T') ? clean.split('T')[1] : '00:00:00';
+    const altHour = parseInt(altTimePart.split(':')[0]);
+    if (altHour < 8 || altHour > 18) {
+      alternative = `${altDatePart}T10:00:00`;
+    }
+
+    transcript.push({ role: 'receptionist', message: scripts.unavailable.replace('{alternative}', formatSlot(alternative)), delay: 1000 });
     transcript.push({ role: 'alfred', message: "Let me check with the user and get back to you.", delay: 500 });
 
     return {
       success: false,
       providerId,
       providerName: provider.name,
-      message: scripts.unavailable.replace('{alternative}', formatSlot(alternatives[0])),
-      alternativeSlots: alternatives,
+      message: scripts.unavailable.replace('{alternative}', formatSlot(alternative)),
+      alternativeSlots: [alternative],
       waitTime: transcript.reduce((sum, t) => sum + t.delay, 0),
       transcript
     };
@@ -249,9 +300,20 @@ function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const SIMULATOR_TIMEZONE = process.env.USER_TIMEZONE || 'America/New_York';
+
 function formatSlot(isoString: string): string {
-  const date = new Date(isoString);
-  return date.toLocaleString('en-US', {
+  // The bare datetime strings are already in the user's local timezone.
+  // Stash them in a UTC Date and format with timeZone:'UTC' so the raw
+  // numbers display unchanged.  Using SIMULATOR_TIMEZONE would subtract
+  // the offset a second time (e.g. 10 AM → 5 AM for EST).
+  const clean = isoString.replace(/(\.\d+)?([Zz]|[+-]\d{2}:\d{2})$/, '');
+  const [datePart, timePart = '00:00:00'] = clean.split('T');
+  const [y, mon, d] = datePart.split('-').map(Number);
+  const [h, m, s] = timePart.split(':').map(Number);
+  const utcDate = new Date(Date.UTC(y, mon - 1, d, h, m, s || 0));
+  return utcDate.toLocaleString('en-US', {
+    timeZone: 'UTC',
     weekday: 'short',
     month: 'short',
     day: 'numeric',

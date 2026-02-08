@@ -31,6 +31,7 @@ export interface Provider {
 export interface AppointmentIntent {
   userId: string;
   serviceType: string;
+  userLocation?: string; // Add this
   preferredTimeRange: {
     start: string; // ISO string
     end: string;   // ISO string

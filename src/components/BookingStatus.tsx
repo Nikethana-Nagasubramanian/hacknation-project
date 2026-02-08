@@ -96,72 +96,74 @@ export function BookingStatus({
                    (steps.length > 0 && steps.every((s: BookingStep) => s.status === 'failed'));
 
   return (
-    <div className="w-full max-w-md p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-xl space-y-6 animate-in fade-in slide-in-from-bottom-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold flex items-center gap-2">
-          {isFinished ? (
-            steps.some((s: BookingStep) => s.status === 'success') ? 'Booking Confirmed!' : 'Booking Failed'
-          ) : (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin text-blue-500" />
-              Calling {serviceType || 'Providers'}...
-            </>
-          )}
-        </h3>
+    <div className="bg-[var(--card)] border border-[var(--card-border)] rounded-lg animate-slide-up">
+      <div className="p-4 border-b border-[var(--card-border)] flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          {!isFinished && <Loader2 className="w-4 h-4 animate-spin text-[var(--info)]" />}
+          <h3 className="text-[13px] font-semibold text-[var(--foreground)]">
+            {isFinished ? (
+              steps.some((s: BookingStep) => s.status === 'success') ? 'Booking Confirmed' : 'Booking Failed'
+            ) : (
+              `Calling ${serviceType || 'Providers'}...`
+            )}
+          </h3>
+        </div>
         {isSynced && (
-          <div className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold rounded-full uppercase tracking-wider">
-            Synced to Calendar
-          </div>
+          <span className="inline-flex items-center px-2 py-0.5 text-[10px] font-medium text-[var(--accent-dark)] dark:text-[var(--accent)] bg-[var(--accent-light)] rounded uppercase tracking-wide">
+            Synced
+          </span>
         )}
       </div>
 
-      <div className="space-y-4">
+      <div className="p-4 space-y-2">
         {steps.map((step: BookingStep, i: number) => (
           <div 
             key={i} 
-            className={`flex items-center justify-between p-3 rounded-lg border transition-all ${
-              step.status === 'calling' ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/10 shadow-sm' : 
-              step.status === 'success' ? 'border-green-500 bg-green-50 dark:bg-green-900/10' :
-              step.status === 'failed' ? 'border-red-200 bg-red-50/30 opacity-80' :
-              'border-neutral-100 dark:border-neutral-800 opacity-40'
+            className={`flex items-center justify-between p-3 rounded-md border transition-all ${
+              step.status === 'calling' ? 'border-[var(--info)] bg-[var(--info)]/5' : 
+              step.status === 'success' ? 'border-[var(--accent)] bg-[var(--accent-light)]' :
+              step.status === 'failed' ? 'border-[var(--danger)]/30 bg-[var(--danger)]/5 opacity-60' :
+              'border-[var(--card-border)] opacity-40'
             }`}
           >
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-full ${
-                step.status === 'calling' ? 'bg-blue-500 text-white' :
-                step.status === 'success' ? 'bg-green-500 text-white' :
-                step.status === 'failed' ? 'bg-red-500 text-white' :
-                'bg-neutral-200 dark:bg-neutral-800 text-neutral-500'
+              <div className={`p-1.5 rounded-md ${
+                step.status === 'calling' ? 'bg-[var(--info)] text-white' :
+                step.status === 'success' ? 'bg-[var(--accent)] text-white' :
+                step.status === 'failed' ? 'bg-[var(--danger)] text-white' :
+                'bg-[var(--card-border)] text-[var(--muted)]'
               }`}>
-                <Phone className="w-4 h-4" />
+                <Phone className="w-3 h-3" />
               </div>
               <div>
-                <p className="text-sm font-semibold">{step.providerName}</p>
-                <p className="text-xs text-neutral-500 capitalize">{step.status}</p>
+                <p className="text-[12px] font-medium text-[var(--foreground)]">{step.providerName}</p>
+                <p className="text-[10px] text-[var(--muted)] capitalize">{step.status}</p>
               </div>
             </div>
             
-            {step.status === 'calling' && <Loader2 className="w-4 h-4 animate-spin text-blue-500" />}
-            {step.status === 'success' && <CheckCircle2 className="w-4 h-4 text-green-500" />}
-            {step.status === 'failed' && <XCircle className="w-4 h-4 text-red-500" />}
+            {step.status === 'calling' && <Loader2 className="w-3.5 h-3.5 animate-spin text-[var(--info)]" />}
+            {step.status === 'success' && <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent)]" />}
+            {step.status === 'failed' && <XCircle className="w-3.5 h-3.5 text-[var(--danger)]" />}
           </div>
         ))}
       </div>
 
       {isFinished && steps.some((s: BookingStep) => s.status === 'success') && (
-        <div className="p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg flex items-start gap-3">
-          {isSyncing ? (
-            <Loader2 className="w-5 h-5 animate-spin text-blue-500 mt-0.5" />
-          ) : (
-            <CalendarIcon className="w-5 h-5 text-blue-500 mt-0.5" />
-          )}
-          <div className="text-xs space-y-1">
-            <p className="font-bold">
-              {isSyncing ? 'Syncing to Google Calendar...' : isSynced ? 'Synced to Google Calendar' : 'Preparing Calendar Sync...'}
-            </p>
-            <p className="text-neutral-500">
-              {isSynced ? 'Your appointment has been added to your primary calendar.' : 'Just a moment while we update your schedule.'}
-            </p>
+        <div className="px-4 pb-4">
+          <div className="p-3 bg-[var(--background)] rounded-md flex items-start gap-3">
+            {isSyncing ? (
+              <Loader2 className="w-4 h-4 animate-spin text-[var(--info)] mt-0.5" />
+            ) : (
+              <CalendarIcon className="w-4 h-4 text-[var(--info)] mt-0.5" />
+            )}
+            <div className="text-[11px] space-y-0.5">
+              <p className="font-medium text-[var(--foreground)]">
+                {isSyncing ? 'Syncing to Google Calendar...' : isSynced ? 'Synced to Google Calendar' : 'Preparing Calendar Sync...'}
+              </p>
+              <p className="text-[var(--muted)]">
+                {isSynced ? 'Added to your primary calendar.' : 'Just a moment...'}
+              </p>
+            </div>
           </div>
         </div>
       )}

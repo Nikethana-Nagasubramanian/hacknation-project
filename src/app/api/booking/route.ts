@@ -24,9 +24,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Construct the intent with the new parameters
-    const start = new Date(`${preferredDate}T${preferredTime}`).toISOString();
-    const end = new Date(new Date(start).getTime() + 60 * 60 * 1000).toISOString(); // 1 hour window
+    // 1. Construct the intent — keep times as bare local datetimes (no UTC shift)
+    const start = `${preferredDate}T${preferredTime}`;
+    // Add 1 hour for end time without going through Date → toISOString (avoids UTC shift)
+    const [h, m] = preferredTime.split(':').map(Number);
+    const end = `${preferredDate}T${String(h + 1).padStart(2, '0')}:${String(m || 0).padStart(2, '0')}:00`;
 
     const intent: AppointmentIntent = {
       userId,

@@ -274,7 +274,7 @@ export function formatSwarmSummary(result: SwarmResult): string {
     lines.push(
       `🏆 Best Match:`,
       `   ${result.bestMatch.providerName}`,
-      `   ${new Date(result.bestMatch.result!.bookedSlot!).toLocaleString()}`
+      `   ${new Date(result.bestMatch.result!.bookedSlot!).toLocaleString('en-US', { timeZone: process.env.USER_TIMEZONE || 'America/New_York' })}`
     );
   } else {
     lines.push(`❌ No successful bookings`);

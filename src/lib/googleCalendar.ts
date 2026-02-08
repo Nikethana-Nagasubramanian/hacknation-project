@@ -59,7 +59,7 @@ export async function getCalendarEvents(
       summary: event.summary || 'Busy',
       start: event.start?.dateTime || event.start?.date || '',
       end: event.end?.dateTime || event.end?.date || '',
-      location: event.location,
+      location: event.location || undefined,
     }));
   } catch (error) {
     console.error('Error fetching calendar events:', error);
@@ -89,8 +89,10 @@ export async function createCalendarEvent(auth: OAuth2Client, details: {
   description: string;
   startTime: string;
   endTime: string;
+  timeZone?: string;
 }) {
   const calendar = google.calendar({ version: 'v3', auth });
+  const tz = details.timeZone || process.env.USER_TIMEZONE || 'America/New_York';
   
   const event = {
     summary: details.summary,
@@ -98,9 +100,11 @@ export async function createCalendarEvent(auth: OAuth2Client, details: {
     description: details.description,
     start: {
       dateTime: details.startTime,
+      timeZone: tz,
     },
     end: {
       dateTime: details.endTime,
+      timeZone: tz,
     },
     reminders: {
       useDefault: false,
